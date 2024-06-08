@@ -4,6 +4,8 @@ import {
   collection,
   addDoc,
   getDocs,
+  deleteDoc,
+  doc,
 } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -49,10 +51,27 @@ form.addEventListener("submit", async (e) => {
 });
 
 const show = document.getElementById("show");
-const querySnapshot = await getDocs(collection(db, "PXL-JSI05"));
-querySnapshot.forEach((doc) => {
-  show.innerHTML += `
+
+async function getData() {
+  show.innerHTML = "";
+  const querySnapshot = await getDocs(collection(db, "PXL-JSI05"));
+  querySnapshot.forEach((doc) => {
+    show.innerHTML += `
     <h2>${doc.data().title}</h2>
     <p>${doc.data().body}</p>
+    <button onclick="deleteData('${doc.id}')">Delete</button>
     `;
-});
+  });
+}
+
+window.deleteData = async function (id) {
+  try {
+    await deleteDoc(doc(db, "PXL-JSI05", id));
+    console.log("Delete Success");
+    getData();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getData();

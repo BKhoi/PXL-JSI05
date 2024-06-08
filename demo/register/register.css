@@ -50,3 +50,7 @@ body {
 .form button:hover {
   background-color: #5500ff;
 }
+
+.text {
+  padding: 70px;
+}
