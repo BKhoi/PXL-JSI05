@@ -7,8 +7,16 @@ body {
   box-sizing: border-box;
 }
 
+.card:hover {
+  transform: scale(1.02);
+}
+
 #price {
   color: rgba(95, 190, 0, 0.737);
+}
+
+.desc {
+  color: #666;
 }
 
 .detail-btn {
@@ -79,4 +87,46 @@ footer {
 
 .insta:hover {
   color: pink;
+}
+
+.writers-section {
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+.writers-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.writers-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.writer-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 15px;
+  max-width: 300px;
+  text-align: left;
+}
+
+.writer-card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.writer-card h3 {
+  margin: 10px 0;
+}
+
+.writer-card p {
+  color: #666;
 }

@@ -55,7 +55,7 @@ const books = [
   },
 ];
 
-const mangas = [
+const manga = [
   {
     name: "One Punch Man",
     price: 13,
@@ -99,7 +99,7 @@ const scifi = [
     price: 14,
     image: "../img/body.jpg",
     instock: 7,
-    desc: " A hard science fiction series that tackles first contact with an alien civilization and its far-reaching consequences.",
+    desc: " A hard science fiction series that tackles first contact with an alien civilization and its consequences.",
   },
 ];
 
@@ -117,9 +117,9 @@ function getProducts() {
         />
         </a>
         <div class="card-body">
-          <h5 class="card-title name">${books[i].name}</h5>
+          <h4 class="card-title name">${books[i].name}</h4>
           <div class="card-text">
-            <p><i>
+            <p class="desc"><i>
             ${books[i].desc}
             </i><p>
             <p id="price">Price: $${books[i].price}</p>
@@ -136,27 +136,27 @@ function getProducts() {
 }
 getProducts();
 
-const productItems2 = document.getElementById("mangas");
+const productItems2 = document.getElementById("manga");
 function getProducts2() {
-  for (let i = 0; i < mangas.length; i++) {
+  for (let i = 0; i < manga.length; i++) {
     productItems2.innerHTML += `
       <div class="col-md-4 col-12">
       <div class="card" style="width: 18rem">
       <a href="../details/detail.html">
         <img
-          src="${mangas[i].image}"
+          src="${manga[i].image}"
           class="card-img-top product-img"
           alt="..."
         />
         </a>
         <div class="card-body">
-          <h5 class="card-title name">${mangas[i].name}</h5>
+          <h4 class="card-title name">${manga[i].name}</h4>
           <div class="card-text">
-            <p><i>
-            ${mangas[i].desc}
+            <p class="desc"><i>
+            ${manga[i].desc}
             </i><p>
-            <p id="price">Price: $${mangas[i].price}</p>
-            <p id="instock">In Stock: ${mangas[i].instock}</p>
+            <p id="price">Price: $${manga[i].price}</p>
+            <p id="instock">In Stock: ${manga[i].instock}</p>
           </div>
           <a href="../details/detail.html" class="btn detail-btn"
             >See more information</a
@@ -183,9 +183,9 @@ function getProducts3() {
         />
         </a>
         <div class="card-body">
-          <h5 class="card-title name">${scifi[i].name}</h5>
+          <h4 class="card-title name">${scifi[i].name}</h4>
           <div class="card-text">
-           <p><i>
+           <p class="desc"><i>
             ${scifi[i].desc}
             </i><p>
             <p id="price">Price: $${scifi[i].price}</p>
