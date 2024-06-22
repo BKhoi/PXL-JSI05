@@ -1,0 +1,38 @@
+body {
+  background-color: #ecf0f1;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 80%;
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.logo {
+  padding: 10px;
+}
+
+img {
+  height: 200px;
+}
+
+.main {
+  height: 300px;
+  font-size: 18px;
+  color: #666;
+}

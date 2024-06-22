@@ -7,6 +7,12 @@ import {
   onAuthStateChanged,
   signOut,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  collection,
+  addDoc,
+  getFirestore,
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,6 +29,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const db = getFirestore(app);
 
 export {
   app,
@@ -32,4 +39,5 @@ export {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  db,
 };
