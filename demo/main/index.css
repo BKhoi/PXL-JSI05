@@ -5,6 +5,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: url(../img/Thiết\ kế\ chưa\ có\ tên.png) no-repeat fixed;
+  background-size: cover;
 }
 
 #logout {

@@ -87,14 +87,14 @@ async function getData() {
       <p>${doc.data().Bookdescription}</p>
       <p>${doc.data().Bookprice}</p>
       <p>${doc.data().Bookinstock}</p>
-      <button onclick="deleteData('${doc.id}')">Delete</button>
+      <button onclick="deleteData1('${doc.id}')">Delete</button>
       `;
   });
 }
-window.deleteData = async function (id) {
+window.deleteData1 = async function (id) {
   try {
     await deleteDoc(doc(db, "Books", id));
-    getData();
+    location.reload();
   } catch (error) {
     console.log(error);
   }
@@ -111,14 +111,14 @@ async function getData2() {
       <p>${doc.data().Mangadescription}</p>
       <p>${doc.data().Mangaprice}</p>
       <p>${doc.data().Mangainstock}</p>
-      <button onclick="deleteData('${doc.id}')">Delete</button>
+      <button onclick="deleteData2('${doc.id}')">Delete</button>
       `;
   });
 }
-window.deleteData = async function (id) {
+window.deleteData2 = async function (id) {
   try {
     await deleteDoc(doc(db, "Manga", id));
-    getData();
+    location.reload();
   } catch (error) {
     console.log(error);
   }
@@ -130,19 +130,19 @@ async function getData3() {
   show3.innerHTML = "";
   const querySnapshot = await getDocs(collection(db, "Scifi"));
   querySnapshot.forEach((doc) => {
-    show2.innerHTML += `
+    show3.innerHTML += `
       <h2>${doc.data().Scifititle}</h2>
       <p>${doc.data().Scifidescription}</p>
       <p>${doc.data().Scifiprice}</p>
       <p>${doc.data().Scifiinstock}</p>
-      <button onclick="deleteData('${doc.id}')">Delete</button>
+      <button onclick="deleteData3('${doc.id}')">Delete</button>
       `;
   });
 }
-window.deleteData = async function (id) {
+window.deleteData3 = async function (id) {
   try {
     await deleteDoc(doc(db, "Scifi", id));
-    getData();
+    location.reload();
   } catch (error) {
     console.log(error);
   }

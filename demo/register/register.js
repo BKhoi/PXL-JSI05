@@ -17,7 +17,7 @@ register.addEventListener("submit", (event) => {
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
-        window.location.href = "../sign in/signin.html";
+        window.location.href = "../login/signin.html";
         // ...
       })
       .catch((error) => {

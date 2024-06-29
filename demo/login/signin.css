@@ -9,6 +9,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url(../img/Thiết\ kế\ chưa\ có\ tên.png);
 }
 
 .container {
@@ -50,8 +51,4 @@ body {
 
 .form button:hover {
   background-color: #5500ff;
-}
-
-.text {
-  padding: 70px;
 }

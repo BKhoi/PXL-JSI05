@@ -40,4 +40,5 @@ export {
   onAuthStateChanged,
   signOut,
   db,
+  firebaseConfig,
 };
