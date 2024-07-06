@@ -19,9 +19,11 @@ form.addEventListener("submit", async (e) => {
   let bookdesc = document.getElementById("book-desc").value;
   let bookprice = document.getElementById("book-price").value;
   let bookinstock = document.getElementById("book-instock").value;
+  let bookimg = document.getElementById("book-img").value;
 
   try {
     const docRef = await addDoc(collection(db, "Books"), {
+      Bookimg: bookimg,
       Booktitle: booktitle,
       Bookdescription: bookdesc,
       Bookprice: bookprice,
@@ -77,17 +79,36 @@ form3.addEventListener("submit", async (e) => {
   }
 });
 
-const show = document.getElementById("show");
+const show1 = document.getElementById("show1");
 async function getData() {
-  show.innerHTML = "";
+  show1.innerHTML = "";
   const querySnapshot = await getDocs(collection(db, "Books"));
   querySnapshot.forEach((doc) => {
-    show.innerHTML += `
-      <h2>${doc.data().Booktitle}</h2>
-      <p>${doc.data().Bookdescription}</p>
-      <p>${doc.data().Bookprice}</p>
-      <p>${doc.data().Bookinstock}</p>
-      <button onclick="deleteData1('${doc.id}')">Delete</button>
+    show1.innerHTML += `
+      <div class="col-md-4 col-12">
+      <div class="card" style="width: 18rem">
+        <a href="../details/detail.html">
+          <img
+            src="${doc.data().Bookimg}"
+            class="card-img-top product-img"
+            alt="..."
+          />
+        </a>
+        <div class="card-body">
+          <h4 class="card-title name">${doc.data().Booktitle}</h4>
+          <div class="card-text">
+            <p class="desc"><i> ${doc.data().Bookdescription} </i></p>
+
+            <p></p>
+            <p id="price">Price: $${doc.data().Bookprice}</p>
+            <p id="instock">In Stock: ${doc.data().Bookinstock}</p>
+          </div>
+          <button class="delete-btn" onclick="deleteData1('${
+            doc.id
+          }')">Delete</button>
+        </div>
+      </div>
+    </div>
       `;
   });
 }
@@ -107,11 +128,30 @@ async function getData2() {
   const querySnapshot = await getDocs(collection(db, "Manga"));
   querySnapshot.forEach((doc) => {
     show2.innerHTML += `
-      <h2>${doc.data().Mangatitle}</h2>
-      <p>${doc.data().Mangadescription}</p>
-      <p>${doc.data().Mangaprice}</p>
-      <p>${doc.data().Mangainstock}</p>
-      <button onclick="deleteData2('${doc.id}')">Delete</button>
+       <div class="col-md-4 col-12">
+      <div class="card" style="width: 18rem">
+        <a href="../details/detail.html">
+          <img
+            src=""
+            class="card-img-top product-img"
+            alt="..."
+          />
+        </a>
+        <div class="card-body">
+          <h4 class="card-title name">${doc.data().Mangatitle}</h4>
+          <div class="card-text">
+            <p class="desc"><i> ${doc.data().Mangadescription} </i></p>
+
+            <p></p>
+            <p id="price">Price: $${doc.data().Mangaprice}</p>
+            <p id="instock">In Stock: ${doc.data().Mangainstock}</p>
+          </div>
+          <button class="delete-btn" onclick="deleteData1('${
+            doc.id
+          }')">Delete</button>
+        </div>
+      </div>
+    </div>
       `;
   });
 }
@@ -131,11 +171,30 @@ async function getData3() {
   const querySnapshot = await getDocs(collection(db, "Scifi"));
   querySnapshot.forEach((doc) => {
     show3.innerHTML += `
-      <h2>${doc.data().Scifititle}</h2>
-      <p>${doc.data().Scifidescription}</p>
-      <p>${doc.data().Scifiprice}</p>
-      <p>${doc.data().Scifiinstock}</p>
-      <button onclick="deleteData3('${doc.id}')">Delete</button>
+       <div class="col-md-4 col-12">
+      <div class="card" style="width: 18rem">
+        <a href="../details/detail.html">
+          <img
+            src=""
+            class="card-img-top product-img"
+            alt="..."
+          />
+        </a>
+        <div class="card-body">
+          <h4 class="card-title name">${doc.data().Scifititle}</h4>
+          <div class="card-text">
+            <p class="desc"><i> ${doc.data().Scifidescription} </i></p>
+
+            <p></p>
+            <p id="price">Price: $${doc.data().Scifiprice}</p>
+            <p id="instock">In Stock: ${doc.data().Scifiinstock}</p>
+          </div>
+          <button class="delete-btn" onclick="deleteData1('${
+            doc.id
+          }')">Delete</button>
+        </div>
+      </div>
+    </div>
       `;
   });
 }

@@ -56,7 +56,7 @@ logoutbtn.addEventListener("click", () => {
 //     price: 8,
 //     image: "../img/prince2.jpg",
 //     instock: 5,
-//     desc: "Explore The Vast Space And Time.",
+//     desc: "Explore The Vast Space And Time",
 //   },
 //   {
 //     name: "If I Did It",
@@ -238,8 +238,8 @@ const show1 = document.getElementById("show1");
 console.log(postQuery, show1);
 
 onSnapshot(postQuery, (snapshot) => {
-  show1.innerHTML = "";
   snapshot.forEach((doc) => {
+    show1.innerHTML += "";
     const post = doc.data();
     const postId = doc.id;
 
@@ -254,13 +254,13 @@ onSnapshot(postQuery, (snapshot) => {
           />
         </a>
         <div class="card-body">
-          <h4 class="card-title name">${post.booktitle}</h4>
+          <h4 class="card-title name">${post.Booktitle}</h4>
           <div class="card-text">
-            <p class="desc"><i> ${post.bookdesc} </i></p>
+            <p class="desc"><i> ${post.Bookdescription} </i></p>
 
             <p></p>
-            <p id="price">Price: $${post.bookprice}</p>
-            <p id="instock">In Stock: ${post.bookinstock}</p>
+            <p id="price">Price: $${post.Bookprice}</p>
+            <p id="instock">In Stock: ${post.Bookinstock}</p>
           </div>
           <a href="../details/detail.html" class="btn detail-btn"
             >See more information</a

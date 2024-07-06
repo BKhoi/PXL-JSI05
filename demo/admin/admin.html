@@ -5,41 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="admin.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <div>
-      <form action="" id="form">
-        <input type="text" placeholder="Title" id="book-title" />
-        <input type="text" placeholder="Description" id="book-desc" />
-        <input type="text" placeholder="Price" id="book-price" />
-        <input type="text" placeholder="In Stock" id="book-instock" />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-    <div id="show"></div>
+    <div class="container">
+      <div class="books row" id="books">
+        <h2 class="text-center">Books</h2>
+        <div>
+          <form action="" id="form">
+            <input type="text" placeholder="Title" id="book-title" />
+            <input type="text" placeholder="Description" id="book-desc" />
+            <input type="text" placeholder="Price" id="book-price" />
+            <input type="text" placeholder="In Stock" id="book-instock" />
+            <input type="text" placeholder="img" id="book-img" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <div id="show1"></div>
+      </div>
 
-    <div>
-      <form action="" id="form2">
-        <input type="text" placeholder="Title" id="manga-title" />
-        <input type="text" placeholder="Description" id="manga-desc" />
-        <input type="text" placeholder="Price" id="manga-price" />
-        <input type="text" placeholder="In Stock" id="manga-instock" />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-    <div id="show2"></div>
+      <div class="manga row" id="manga">
+        <h2 class="text-center">Manga</h2>
+        <div>
+          <form action="" id="form2">
+            <input type="text" placeholder="Title" id="manga-title" />
+            <input type="text" placeholder="Description" id="manga-desc" />
+            <input type="text" placeholder="Price" id="manga-price" />
+            <input type="text" placeholder="In Stock" id="manga-instock" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <div id="show2"></div>
+      </div>
 
-    <div>
-      <form action="" id="form3">
-        <input type="text" placeholder="Title" id="scifi-title" />
-        <input type="text" placeholder="Description" id="scifi-desc" />
-        <input type="text" placeholder="Price" id="scifi-price" />
-        <input type="text" placeholder="In Stock" id="scifi-instock" />
-        <button type="submit">Submit</button>
-      </form>
+      <div class="scifi row" id="scifi">
+        <h2 class="text-center">Science Fiction</h2>
+        <div>
+          <form action="" id="form3">
+            <input type="text" placeholder="Title" id="scifi-title" />
+            <input type="text" placeholder="Description" id="scifi-desc" />
+            <input type="text" placeholder="Price" id="scifi-price" />
+            <input type="text" placeholder="In Stock" id="scifi-instock" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <div id="show3"></div>
+      </div>
     </div>
-    <div id="show3"></div>
 
     <script src="admin.js" type="module"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
