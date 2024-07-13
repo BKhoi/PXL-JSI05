@@ -1,10 +1,10 @@
+import { app } from "../main/firebase.js";
 import {
-  app,
-  auth,
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from "../main/firebase.js";
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+const auth = getAuth(app);
 const signin = document.getElementById("signin");
 signin.addEventListener("submit", (event) => {
   event.preventDefault();

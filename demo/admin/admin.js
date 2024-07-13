@@ -1,10 +1,13 @@
 import {
   getFirestore,
-  addDoc,
+  query,
   collection,
-  getDocs,
+  onSnapshot,
+  addDoc,
   deleteDoc,
   doc,
+  updateDoc,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 import { app } from "../main/firebase.js";
@@ -23,7 +26,6 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const docRef = await addDoc(collection(db, "Books"), {
-      Bookimg: bookimg,
       Booktitle: booktitle,
       Bookdescription: bookdesc,
       Bookprice: bookprice,
@@ -35,10 +37,69 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
+window.deleteData = async function (id) {
+  try {
+    await deleteDoc(doc(db, "Books", id));
+    console.log("Delete Success");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+window.editData = async function (id) {
+  try {
+    const newTitle = prompt("New Title");
+    const newPrice = prompt("New price");
+    const newImg = prompt("New Img");
+    await updateDoc(doc(db, "Books", id), {
+      Booktitle: newTitle,
+      Bookprice: newPrice,
+      Bookimg: newImg,
+    });
+    console.log("Edit Success");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const postQuery = query(collection(db, "Books"));
+const show1 = document.getElementById("show1");
+onSnapshot(postQuery, (snapshot) => {
+  show1.innerHTML = "";
+  snapshot.forEach((doc) => {
+    const post = doc.data();
+    const postId = doc.id;
+    show1.innerHTML += `
+     <div class="col-md-4 col-12">
+      <div class="card" style="width: 18rem">
+        <a href="../details/detail.html">
+          <img
+            src="${post.Bookimg}"
+            class="card-img-top product-img"
+            alt="..."
+          />
+        </a>
+        <div class="card-body">
+          <h4 class="card-title name">${post.Booktitle}</h4>
+          <div class="card-text">
+            <p class="desc"><i> ${post.Bookdescription} </i></p>
+
+            <p></p>
+            <p id="price">Price: $${post.Bookprice}</p>
+            <p id="instock">In Stock: ${post.Bookinstock}</p>
+          </div>
+          <button class="delete-btn" onclick="deleteData('${doc.id}')">Delete</button>
+          <button onclick="editData('${doc.id}')">Edit</button>
+        </div>
+      </div>
+    </div>
+      `;
+  });
+});
+
 const form2 = document.getElementById("form2");
 form2.addEventListener("submit", async (e) => {
   e.preventDefault();
-
   let mangatitle = document.getElementById("manga-title").value;
   let mangadesc = document.getElementById("manga-desc").value;
   let mangaprice = document.getElementById("manga-price").value;
@@ -55,6 +116,64 @@ form2.addEventListener("submit", async (e) => {
   } catch (e) {
     console.error("Error adding document: ", e);
   }
+});
+
+window.deleteData2 = async function (id) {
+  try {
+    await deleteDoc(doc(db, "Manga", id));
+    console.log("Delete Success");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+window.editData2 = async function (id) {
+  try {
+    const newTitle = prompt("New Title");
+    const newPrice = prompt("New price");
+    await updateDoc(doc(db, "Manga", id), {
+      Mangatitle: newTitle,
+      Mangaprice: newPrice,
+    });
+    console.log("Edit Success");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const postQuery2 = query(collection(db, "Manga"));
+const show2 = document.getElementById("show2");
+onSnapshot(postQuery2, (snapshot) => {
+  show2.innerHTML = "";
+  snapshot.forEach((doc) => {
+    const post = doc.data();
+    const postId = doc.id;
+    show2.innerHTML += `
+     <div class="col-md-4 col-12">
+      <div class="card" style="width: 18rem">
+        <a href="../details/detail.html">
+          <img
+            src=""
+            class="card-img-top product-img"
+            alt="..."
+          />
+        </a>
+        <div class="card-body">
+          <h4 class="card-title name">${post.Mangatitle}</h4>
+          <div class="card-text">
+            <p class="desc"><i> ${post.Mangadescription}</i></p>
+
+            <p></p>
+            <p id="price">Price: $${post.Mangaprice}</p>
+            <p id="instock">In Stock: ${post.Mangainstock}</p>
+          </div>
+          <button class="delete-btn" onclick="deleteData2('${doc.id}')">Delete</button>
+          <button onclick="editData2('${doc.id}')">Edit</button>
+        </div>
+      </div>
+    </div>
+      `;
+  });
 });
 
 const form3 = document.getElementById("form3");
@@ -79,131 +198,60 @@ form3.addEventListener("submit", async (e) => {
   }
 });
 
-const show1 = document.getElementById("show1");
-async function getData() {
-  show1.innerHTML = "";
-  const querySnapshot = await getDocs(collection(db, "Books"));
-  querySnapshot.forEach((doc) => {
-    show1.innerHTML += `
-      <div class="col-md-4 col-12">
-      <div class="card" style="width: 18rem">
-        <a href="../details/detail.html">
-          <img
-            src="${doc.data().Bookimg}"
-            class="card-img-top product-img"
-            alt="..."
-          />
-        </a>
-        <div class="card-body">
-          <h4 class="card-title name">${doc.data().Booktitle}</h4>
-          <div class="card-text">
-            <p class="desc"><i> ${doc.data().Bookdescription} </i></p>
-
-            <p></p>
-            <p id="price">Price: $${doc.data().Bookprice}</p>
-            <p id="instock">In Stock: ${doc.data().Bookinstock}</p>
-          </div>
-          <button class="delete-btn" onclick="deleteData1('${
-            doc.id
-          }')">Delete</button>
-        </div>
-      </div>
-    </div>
-      `;
-  });
-}
-window.deleteData1 = async function (id) {
-  try {
-    await deleteDoc(doc(db, "Books", id));
-    location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-};
-getData();
-
-const show2 = document.getElementById("show2");
-async function getData2() {
-  show2.innerHTML = "";
-  const querySnapshot = await getDocs(collection(db, "Manga"));
-  querySnapshot.forEach((doc) => {
-    show2.innerHTML += `
-       <div class="col-md-4 col-12">
-      <div class="card" style="width: 18rem">
-        <a href="../details/detail.html">
-          <img
-            src=""
-            class="card-img-top product-img"
-            alt="..."
-          />
-        </a>
-        <div class="card-body">
-          <h4 class="card-title name">${doc.data().Mangatitle}</h4>
-          <div class="card-text">
-            <p class="desc"><i> ${doc.data().Mangadescription} </i></p>
-
-            <p></p>
-            <p id="price">Price: $${doc.data().Mangaprice}</p>
-            <p id="instock">In Stock: ${doc.data().Mangainstock}</p>
-          </div>
-          <button class="delete-btn" onclick="deleteData1('${
-            doc.id
-          }')">Delete</button>
-        </div>
-      </div>
-    </div>
-      `;
-  });
-}
-window.deleteData2 = async function (id) {
-  try {
-    await deleteDoc(doc(db, "Manga", id));
-    location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-};
-getData2();
-
-const show3 = document.getElementById("show3");
-async function getData3() {
-  show3.innerHTML = "";
-  const querySnapshot = await getDocs(collection(db, "Scifi"));
-  querySnapshot.forEach((doc) => {
-    show3.innerHTML += `
-       <div class="col-md-4 col-12">
-      <div class="card" style="width: 18rem">
-        <a href="../details/detail.html">
-          <img
-            src=""
-            class="card-img-top product-img"
-            alt="..."
-          />
-        </a>
-        <div class="card-body">
-          <h4 class="card-title name">${doc.data().Scifititle}</h4>
-          <div class="card-text">
-            <p class="desc"><i> ${doc.data().Scifidescription} </i></p>
-
-            <p></p>
-            <p id="price">Price: $${doc.data().Scifiprice}</p>
-            <p id="instock">In Stock: ${doc.data().Scifiinstock}</p>
-          </div>
-          <button class="delete-btn" onclick="deleteData1('${
-            doc.id
-          }')">Delete</button>
-        </div>
-      </div>
-    </div>
-      `;
-  });
-}
 window.deleteData3 = async function (id) {
   try {
     await deleteDoc(doc(db, "Scifi", id));
-    location.reload();
+    console.log("Delete Success");
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
-getData3();
+
+window.editData3 = async function (id) {
+  try {
+    const newTitle = prompt("New Title");
+    const newPrice = prompt("New price");
+    await updateDoc(doc(db, "Scifi", id), {
+      Scifititle: newTitle,
+      Scifiprice: newPrice,
+    });
+    console.log("Edit Success");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const postQuery3 = query(collection(db, "Scifi"));
+const show3 = document.getElementById("show3");
+onSnapshot(postQuery3, (snapshot) => {
+  show3.innerHTML = "";
+  snapshot.forEach((doc) => {
+    const post = doc.data();
+    const postId = doc.id;
+    show3.innerHTML += `
+     <div class="col-md-4 col-12">
+      <div class="card" style="width: 18rem">
+        <a href="../details/detail.html">
+          <img
+            src=""
+            class="card-img-top product-img"
+            alt="..."
+          />
+        </a>
+        <div class="card-body">
+          <h4 class="card-title name">${post.Scifititle}</h4>
+          <div class="card-text">
+            <p class="desc"><i> ${post.Scifidescription}</i></p>
+
+            <p></p>
+            <p id="price">Price: $${post.Scifiprice}</p>
+            <p id="instock">In Stock: ${post.Scifiinstock}</p>
+          </div>
+          <button class="delete-btn" onclick="deleteData3('${doc.id}')">Delete</button>
+          <button onclick="editData3('${doc.id}')">Edit</button>
+        </div>
+      </div>
+    </div>
+      `;
+  });
+});

@@ -1,24 +1,19 @@
+import { app } from "./firebase.js";
 import {
-  app,
-  auth,
+  getFirestore,
+  query,
+  collection,
+  onSnapshot,
+  doc,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  firebaseConfig,
-} from "./firebase.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  onSnapshot,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  query,
-} from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+const auth = getAuth();
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -232,53 +227,3 @@ logoutbtn.addEventListener("click", () => {
 // });
 
 const db = getFirestore(app);
-
-const postQuery = query(collection(db, "Books"));
-const show1 = document.getElementById("show1");
-console.log(postQuery, show1);
-
-onSnapshot(postQuery, (snapshot) => {
-  snapshot.forEach((doc) => {
-    show1.innerHTML += "";
-    const post = doc.data();
-    const postId = doc.id;
-
-    show1.innerHTML += `
-      <div class="col-md-4 col-12">
-      <div class="card" style="width: 18rem">
-        <a href="../details/detail.html">
-          <img
-            src="${post.bookimage}"
-            class="card-img-top product-img"
-            alt="..."
-          />
-        </a>
-        <div class="card-body">
-          <h4 class="card-title name">${post.Booktitle}</h4>
-          <div class="card-text">
-            <p class="desc"><i> ${post.Bookdescription} </i></p>
-
-            <p></p>
-            <p id="price">Price: $${post.Bookprice}</p>
-            <p id="instock">In Stock: ${post.Bookinstock}</p>
-          </div>
-          <a href="../details/detail.html" class="btn detail-btn"
-            >See more information</a
-          >
-        </div>
-      </div>
-    </div>
-
-    `;
-  });
-});
-
-window.deleteData = async function (id) {
-  try {
-    await deleteDoc(doc(db, "Books", id));
-
-    console.log("Delete Success");
-  } catch (error) {
-    console.error(error);
-  }
-};

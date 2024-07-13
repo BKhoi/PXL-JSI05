@@ -6,7 +6,6 @@ import {
   onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 const db = getFirestore(app);
-
 const postQuery = query(collection(db, "Books"));
 const show = document.getElementById("show");
 
