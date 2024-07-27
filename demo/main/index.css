@@ -14,6 +14,23 @@ body {
   border: none;
 }
 
+#cart {
+  background-color: white;
+  color: black;
+  width: 1000px;
+  margin: auto;
+  border-radius: 5px;
+}
+
+#showCart {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  padding: 15px;
+  max-width: 957px;
+}
+
 .item1 {
   display: flex;
 }

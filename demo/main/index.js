@@ -7,6 +7,7 @@ import {
   doc,
   addDoc,
   getDoc,
+  deleteDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 import {
   getAuth,
@@ -18,16 +19,6 @@ import {
 const auth = getAuth();
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log(user.email);
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
-    const uid = user.uid;
-    // ...
-  }
-});
 
 const logoutbtn = document.getElementById("logout");
 logoutbtn.addEventListener("click", () => {
@@ -42,194 +33,6 @@ logoutbtn.addEventListener("click", () => {
     });
 });
 
-// const books = [
-//   {
-//     name: "Yumi & The Painter",
-//     price: 10,
-//     image: "../img/yumi2.jpg",
-//     instock: 8,
-//     desc: "#1 New York Times bestselling",
-//   },
-//   {
-//     name: "The Little Prince",
-//     price: 8,
-//     image: "../img/prince2.jpg",
-//     instock: 5,
-//     desc: "Explore The Vast Space And Time",
-//   },
-//   {
-//     name: "If I Did It",
-//     price: 16,
-//     image: "../img/did.jpg",
-//     instock: 7,
-//     desc: "Confession of The Killer",
-//   },
-// ];
-
-// const manga = [
-//   {
-//     name: "One Punch Man",
-//     price: 13,
-//     image: "../img/opm2.jpg",
-//     instock: 8,
-//     desc: "The Number 1 Hero.",
-//   },
-//   {
-//     name: "Steel Ball Run",
-//     price: 8,
-//     image: "../img/sbr.jpg",
-//     instock: 5,
-//     desc: "Horse Race Across America",
-//   },
-//   {
-//     name: "Dragon Ball Z  ",
-//     price: 14,
-//     image: "../img/dbz.jpg",
-//     instock: 7,
-//     desc: "Face multiversial threats",
-//   },
-// ];
-
-// const scifi = [
-//   {
-//     name: "Snow Crash",
-//     price: 13,
-//     image: "../img/snow.jpg",
-//     instock: 8,
-//     desc: "A fast-paced adventure blending virtual reality, ancient Sumerian culture, and corporate espionage.",
-//   },
-//   {
-//     name: "Leviathan Wakes",
-//     price: 8,
-//     image: "../img/leviathan.jpg",
-//     instock: 5,
-//     desc: "A modern space opera that combines action with political intrigue and rich development.",
-//   },
-//   {
-//     name: "The Three-body Problem",
-//     price: 14,
-//     image: "../img/body.jpg",
-//     instock: 7,
-//     desc: " A hard science fiction series that tackles first contact with an alien civilization and its consequences.",
-//   },
-// ];
-
-// const productItems = document.getElementById("books");
-// function getProducts() {
-//   for (let i = 0; i < books.length; i++) {
-//     productItems.innerHTML += `
-//       <div class="col-md-4 col-12">
-//       <div class="card" style="width: 18rem">
-//       <a href="../details/detail.html">
-//         <img
-//           src="${books[i].image}"
-//           class="card-img-top product-img"
-//           alt="..."
-//         />
-//         </a>
-//         <div class="card-body">
-//           <h4 class="card-title name">${books[i].name}</h4>
-//           <div class="card-text">
-//             <p class="desc"><i>
-//             ${books[i].desc}
-//             </i><p>
-//             <p id="price">Price: $${books[i].price}</p>
-//             <p id="instock">In Stock: ${books[i].instock}</p>
-//           </div>
-//           <a href="../details/detail.html" class="btn detail-btn"
-//             >See more information</a
-//           >
-//         </div>
-//       </div>
-//     </div>
-//       `;
-//   }
-// }
-// getProducts();
-
-// const productItems2 = document.getElementById("manga");
-// function getProducts2() {
-//   for (let i = 0; i < manga.length; i++) {
-//     productItems2.innerHTML += `
-//       <div class="col-md-4 col-12">
-//       <div class="card" style="width: 18rem">
-//       <a href="../details/detail.html">
-//         <img
-//           src="${manga[i].image}"
-//           class="card-img-top product-img"
-//           alt="..."
-//         />
-//         </a>
-//         <div class="card-body">
-//           <h4 class="card-title name">${manga[i].name}</h4>
-//           <div class="card-text">
-//             <p class="desc"><i>
-//             ${manga[i].desc}
-//             </i><p>
-//             <p id="price">Price: $${manga[i].price}</p>
-//             <p id="instock">In Stock: ${manga[i].instock}</p>
-//           </div>
-//           <a href="../details/detail.html" class="btn detail-btn"
-//             >See more information</a
-//           >
-//         </div>
-//       </div>
-//     </div>
-//       `;
-//   }
-// }
-// getProducts2();
-
-// const productItems3 = document.getElementById("scifi");
-// function getProducts3() {
-//   for (let i = 0; i < scifi.length; i++) {
-//     productItems3.innerHTML += `
-//       <div class="col-md-4 col-12">
-//       <div class="card" style="width: 18rem">
-//       <a href="../details/detail.html">
-//         <img
-//           src="${scifi[i].image}"
-//           class="card-img-top product-img"
-//           alt="..."
-//         />
-//         </a>
-//         <div class="card-body">
-//           <h4 class="card-title name">${scifi[i].name}</h4>
-//           <div class="card-text">
-//            <p class="desc"><i>
-//             ${scifi[i].desc}
-//             </i><p>
-//             <p id="price">Price: $${scifi[i].price}</p>
-//             <p id="instock">In Stock: ${scifi[i].instock}</p>
-//           </div>
-//           <a href="../details/detail.html" class="btn detail-btn"
-//             >See more information</a
-//           >
-//         </div>
-//       </div>
-//     </div>
-//       `;
-//   }
-// }
-// getProducts3();
-
-// document.getElementById("search").addEventListener("click", (event) => {
-//   event.preventDefault();
-//   let valueSearch = document.getElementById("search-input").value.trim();
-//   let cards = document.querySelectorAll(".card");
-//   let names = document.querySelectorAll(".name");
-
-//   for (let i = 0; i < cards.length; i++) {
-//     let aProductName = names[i].innerHTML;
-
-//     if (aProductName.includes(valueSearch)) {
-//       cards[i].classList.remove("hide");
-//     } else {
-//       cards[i].classList.add("hide");
-//     }
-//   }
-// });
-
 const db = getFirestore(app);
 
 const postQuery = query(collection(db, "Books"));
@@ -243,7 +46,7 @@ onSnapshot(postQuery, (snapshot) => {
     show1.innerHTML += `
       <div class="col-md-4 col-12">
       <div class="card" style="width: 18rem">
-        <a href="../details/detail.html">
+        <a href="../details/detail.html?id=${postId}" target="_blank">
           <img
             src="${post.Bookimg}"
             class="card-img-top product-img"
@@ -277,7 +80,7 @@ onSnapshot(postQuery2, (snapshot) => {
     show2.innerHTML += `
      <div class="col-md-4 col-12">
       <div class="card" style="width: 18rem">
-        <a href="../details/detail.html">
+        <a href="../details/detail.html?id=${postId}" target="_blank">
           <img
             src="${post.Mangaimg}"
             class="card-img-top product-img"
@@ -293,7 +96,7 @@ onSnapshot(postQuery2, (snapshot) => {
             <p id="price">Price: $${post.Mangaprice}</p>
             <p id="instock">In Stock: ${post.Mangainstock}</p>
           </div>
-     <button type="submit" id="add" onclick="addCart('${postId}')">Add to cart</button>
+     <button type="submit" id="add" onclick="addCart2('${postId}')">Add to cart</button>
         </div>
       </div>
     </div>
@@ -311,7 +114,7 @@ onSnapshot(postQuery3, (snapshot) => {
     show3.innerHTML += `
    <div class="col-md-4 col-12">
     <div class="card" style="width: 18rem">
-      <a href="../details/detail.html">
+      <a href="../details/detail.html?id=${postId}" target="_blank">
         <img
           src="${post.Scifiimg}"
           class="card-img-top product-img"
@@ -327,7 +130,7 @@ onSnapshot(postQuery3, (snapshot) => {
           <p id="price">Price: $${post.Scifiprice}</p>
           <p id="instock">In Stock: ${post.Scifiinstock}</p>
         </div>
-      <button type="submit" id="add" onclick="addCart('${postId}')">Add to cart</button>
+      <button type="submit" id="add" onclick="addCart3('${postId}')">Add to cart</button>
       </div>
     </div>
   </div>
@@ -336,21 +139,94 @@ onSnapshot(postQuery3, (snapshot) => {
 
   const showCart = document.getElementById("showCart");
   window.addCart1 = async function (id) {
-    const docRef = doc(db, "Books", id);
-    const docSnap = await getDoc(docRef);
-    cartTitle = docSnap.data().Booktitle;
-    cartPrice = docSnap.data().Bookprice;
     try {
-      const docRef = await addDoc(collection(db, "Cart"), {
-        Carttitle: cartTitle,
-        Cartprice: cartPrice,
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
+      const docRef = doc(db, "Books", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const content = docSnap.data();
+        const docRef = await addDoc(collection(db, "Cart"), {
+          Itemtitle: content.Booktitle,
+          Itemprice: content.Bookprice,
+        });
+      } else {
+        console.log("No such document!");
+        document.getElementById("output").innerHTML = "Product not found!";
+      }
+    } catch (error) {
+      console.error("Error fetching:", error);
+      document.getElementById("output").innerHTML =
+        "Error loading title details.";
+    }
+  };
+  window.addCart2 = async function (id) {
+    try {
+      const docRef = doc(db, "Manga", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const content = docSnap.data();
+        const docRef = await addDoc(collection(db, "Cart"), {
+          Itemtitle: content.Mangatitle,
+          Itemprice: content.Mangaprice,
+        });
+      } else {
+        console.log("No such document!");
+        document.getElementById("output").innerHTML = "Product not found!";
+      }
+    } catch (error) {
+      console.error("Error fetching:", error);
+      document.getElementById("output").innerHTML =
+        "Error loading title details.";
+    }
+  };
+  window.addCart3 = async function (id) {
+    try {
+      const docRef = doc(db, "Scifi", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const content = docSnap.data();
+        const docRef = await addDoc(collection(db, "Cart"), {
+          Itemtitle: content.Scifititle,
+          Itemprice: content.Scifiprice,
+        });
+      } else {
+        console.log("No such document!");
+        document.getElementById("output").innerHTML = "Product not found!";
+      }
+    } catch (error) {
+      console.error("Error fetching:", error);
+      document.getElementById("output").innerHTML =
+        "Error loading title details.";
     }
   };
 });
+
+const postQuery4 = query(collection(db, "Cart"));
+const showCart = document.getElementById("showCart");
+onSnapshot(postQuery4, (snapshot) => {
+  showCart.innerHTML = "";
+  snapshot.forEach((doc) => {
+    const post = doc.data();
+    const postId = doc.id;
+    showCart.innerHTML += `
+    <div class="col-md-4 col-12 itemCart">
+   <h5>${post.Itemtitle}</h5>
+   <p>${post.Itemprice}</p>
+   <button class="delete-btn" onclick="deleteData('${doc.id}')">Delete</button>
+   </div>
+    `;
+  });
+});
+window.deleteData = async function (id) {
+  try {
+    await deleteDoc(doc(db, "Cart", id));
+    console.log("Delete Success");
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 document.getElementById("search").addEventListener("click", (e) => {
   e.preventDefault();
