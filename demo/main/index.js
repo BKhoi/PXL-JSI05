@@ -20,6 +20,12 @@ const auth = getAuth();
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "../login/signin.html";
+  }
+});
+
 const logoutbtn = document.getElementById("logout");
 logoutbtn.addEventListener("click", () => {
   signOut(auth)
@@ -62,7 +68,7 @@ onSnapshot(postQuery, (snapshot) => {
             <p id="price">Price: $${post.Bookprice}</p>
             <p id="instock">In Stock: ${post.Bookinstock}</p>
           </div>
-        <button type="submit" id="add1" onclick="addCart1('${postId}')">Add to cart</button>
+        <button type="submit" id="add1" class="addbtn" onclick="addCart1('${postId}')">Add to cart</button>
         </div>
       </div>
     </div>
@@ -80,7 +86,7 @@ onSnapshot(postQuery2, (snapshot) => {
     show2.innerHTML += `
      <div class="col-md-4 col-12">
       <div class="card" style="width: 18rem">
-        <a href="../details/detail.html?id=${postId}" target="_blank">
+        <a href="../details2/detail.html?id=${postId}" target="_blank">
           <img
             src="${post.Mangaimg}"
             class="card-img-top product-img"
@@ -96,7 +102,7 @@ onSnapshot(postQuery2, (snapshot) => {
             <p id="price">Price: $${post.Mangaprice}</p>
             <p id="instock">In Stock: ${post.Mangainstock}</p>
           </div>
-     <button type="submit" id="add" onclick="addCart2('${postId}')">Add to cart</button>
+     <button type="submit" id="add" class="addbtn" onclick="addCart2('${postId}')">Add to cart</button>
         </div>
       </div>
     </div>
@@ -114,7 +120,7 @@ onSnapshot(postQuery3, (snapshot) => {
     show3.innerHTML += `
    <div class="col-md-4 col-12">
     <div class="card" style="width: 18rem">
-      <a href="../details/detail.html?id=${postId}" target="_blank">
+      <a href="../details3/detail.html?id=${postId}" target="_blank">
         <img
           src="${post.Scifiimg}"
           class="card-img-top product-img"
@@ -130,7 +136,7 @@ onSnapshot(postQuery3, (snapshot) => {
           <p id="price">Price: $${post.Scifiprice}</p>
           <p id="instock">In Stock: ${post.Scifiinstock}</p>
         </div>
-      <button type="submit" id="add" onclick="addCart3('${postId}')">Add to cart</button>
+      <button type="submit" id="add" class="addbtn" onclick="addCart3('${postId}')">Add to cart</button>
       </div>
     </div>
   </div>
@@ -213,7 +219,7 @@ onSnapshot(postQuery4, (snapshot) => {
     showCart.innerHTML += `
     <div class="col-md-4 col-12 itemCart">
    <h5>${post.Itemtitle}</h5>
-   <p>${post.Itemprice}</p>
+   <p class="cart-price">$${post.Itemprice}</p>
    <button class="delete-btn" onclick="deleteData('${doc.id}')">Delete</button>
    </div>
     `;

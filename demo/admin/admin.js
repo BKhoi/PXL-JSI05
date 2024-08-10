@@ -15,9 +15,12 @@ import {
   uploadBytes,
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
-
+import {
+  getAuth,
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 import { app } from "../main/firebase.js";
-
+const auth = getAuth();
 const db = getFirestore(app);
 
 const form = document.getElementById("form");
@@ -28,7 +31,7 @@ form.addEventListener("submit", async (e) => {
   let bookdesc = document.getElementById("book-desc").value;
   let bookprice = document.getElementById("book-price").value;
   let bookinstock = document.getElementById("book-instock").value;
-  const img = document.getElementById("img1").files[0];
+  const img1 = document.getElementById("img1").files[0];
 
   const storage = getStorage();
   const imgPath = "Books/" + new Date().valueOf();
@@ -100,11 +103,10 @@ window.editData = async function (id) {
   try {
     const newTitle = prompt("New Title");
     const newPrice = prompt("New price");
-    const newImg = prompt("New Img");
+
     await updateDoc(doc(db, "Books", id), {
       Booktitle: newTitle,
       Bookprice: newPrice,
-      Bookimg: newImg,
     });
     console.log("Edit Success");
   } catch (error) {

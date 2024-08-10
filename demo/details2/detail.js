@@ -13,9 +13,9 @@ const postId = urlParams.get("id");
 
 async function getTitleDetails(id) {
   try {
-    const docRef = doc(db, "Books", id);
+    const docRef = doc(db, "Manga", id);
     const docSnap = await getDoc(docRef);
-    const postQuery = query(collection(db, "Books"));
+    const postQuery = query(collection(db, "Manga"));
 
     if (docSnap.exists()) {
       const content = docSnap.data();
@@ -23,11 +23,11 @@ async function getTitleDetails(id) {
 
       output.innerHTML += `
       <div class="wrapper"> 
-         <img class="item-img" src="${content.Bookimg}" alt="..." />
+         <img class="item-img" src="${content.Mangaimg}" alt="..." />
          <div class="details">
-            <h1 class="title">${content.Booktitle}</h1>
-            <p class="aspects">Price of the book: <span class="price">$${content.Bookprice}</span></p>
-            <p class="desc">Book description: ${content.Bookdescription}</p>
+            <h1 class="title">${content.Mangatitle}</h1>
+            <p class="aspects">Price of the book: <span class="price">$${content.Mangaprice}</span></p>
+            <p class="desc">Book description: ${content.Mangadescription}</p>
             <p class="notes">Before you buy:</p>
             <p class="notes">+ Physical vs. Digital: Decide if you want a physical copy or an e-book. Consider your reading habits and storage space. Physical books are great for collections, while e-books are convenient for travel.</p>
             <p class="notes">+ Consider the Edition: Be aware of different editions or translations, especially with classics or foreign books. Some editions might have better translations, introductions, or additional content.</p>

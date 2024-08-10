@@ -22,6 +22,7 @@ signin.addEventListener("submit", (event) => {
         // ...
       })
       .catch((error) => {
+        alert("Email or password is incorrect!");
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
